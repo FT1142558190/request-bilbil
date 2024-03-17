@@ -1,0 +1,23 @@
+这个错误表示在Selenium的WebDriver对象上调用了找不到的方法find_element_by_xpath。
+
+find_element_by_xpath是Selenium 3及以下版本locator API的用法,在Selenium 4中已被废弃。
+
+解决方法是:
+
+将Selenium升级到最新版本(当前是4.7)
+将定位元素的代码改为新版API写法:
+python
+
+Copy code
+
+from selenium.webdriver.common.by import By
+
+uid = self.browser.find_element(By.XPATH, '//*[@id="user-list"]/div[1]/ul/li/div[2]/div[1]/a[1]')
+主要改动:
+
+导入By来指定定位方式
+使用find_element代替find_element_by_xpath
+传入定位方式By.XPATH和定位表达式作为参数
+同样的,所有像find_element_by_id、find_element_by_name等旧版定位API都需要修改为新API。
+其他用法保持不变。
+只需要用新的find_element方法调用,并传入定位类型即可正常工作。这是Selenium 4对API改进的结果。
